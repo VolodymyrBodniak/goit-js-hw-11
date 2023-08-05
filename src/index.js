@@ -38,7 +38,7 @@ function onSearchFormSubmit(event) {
           `Sorry, there are no images matching your search query. Please try again.`
         );
       } else {
-        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+        Notiflix.Notify.success(`Success! We found ${totalHits} images.`);
       }
       if (totalHits > pixabayInstanse.per_page) {
         loadMoreBtn.classList.remove('hide');
