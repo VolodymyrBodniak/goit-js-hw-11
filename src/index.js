@@ -23,13 +23,15 @@ loadMoreBtn.addEventListener('click', loadMore);
 
 function onSearchFormSubmit(event) {
   event.preventDefault();
-  if (!inputEl.value) {
+  const inputValue = inputEl.value.trim();
+  if (!inputValue) {
+    Notiflix.Notify.failure('Please enter a valid search query.');
     return;
   }
   galleryEl.innerHTML = '';
   pixabayInstanse.resetPage();
   loadMoreBtn.classList.add('hide');
-  pixabayInstanse.query = inputEl.value.trim();
+  pixabayInstanse.query = inputValue;
   pixabayInstanse
     .fetchImages()
     .then(({ data: { totalHits, hits } }) => {
@@ -48,6 +50,7 @@ function onSearchFormSubmit(event) {
     })
     .then(renderMarkup)
     .catch(error => console.log(error));
+
   event.target.reset();
 }
 
@@ -127,7 +130,7 @@ function scrollToUp() {
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: cardHeight * 2 - 160,
+    top: cardHeight * 2,
     behavior: 'smooth',
   });
 }
