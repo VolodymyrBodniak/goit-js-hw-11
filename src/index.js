@@ -46,6 +46,7 @@ function onSearchFormSubmit(event) {
         loadMoreBtn.classList.remove('hide');
       }
       pixabayInstanse.changePage();
+      pixabayInstanse.setTotalHits(totalHits);
       return createMarkup(hits);
     })
     .then(renderMarkup)
@@ -65,11 +66,21 @@ function loadMore() {
           "We're sorry, but you've reached the end of search results."
         );
       }
-
       return createMarkup(hits);
     })
-    .then(markup => renderMarkup(markup))
-    .then(scrollToUp)
+    .then(markup => {
+      renderMarkup(markup);
+      const totalPages = Math.ceil(
+        pixabayInstanse.totalHits / pixabayInstanse.per_page
+      );
+      //   console.log(totalPages);
+      if (pixabayInstanse.page >= totalPages) {
+        loadMoreBtn.classList.add('hide');
+      } else {
+        loadMoreBtn.classList.remove('hide');
+      }
+      scrollToUp();
+    })
     .catch(error => console.log(error));
 }
 
