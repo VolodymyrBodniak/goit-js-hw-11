@@ -13,6 +13,7 @@ let lightbox = new SimpleLightbox('.gallery a', {
 const searchFormEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('input');
 const galleryEl = document.querySelector('.gallery');
+const descriptionEl = document.querySelector('.description');
 const loadMoreBtn = document.querySelector('.load-more');
 
 galleryEl.addEventListener('click', onGalleryClick);
@@ -30,6 +31,7 @@ function onSearchFormSubmit(event) {
   }
   galleryEl.innerHTML = '';
   pixabayInstanse.resetPage();
+  descriptionEl.classList.add('hide');
   loadMoreBtn.classList.add('hide');
   pixabayInstanse.query = inputValue;
   pixabayInstanse
@@ -79,6 +81,7 @@ function loadMore() {
       } else {
         loadMoreBtn.classList.remove('hide');
       }
+      descriptionEl.classList.add('hide');
       scrollToUp();
     })
     .catch(error => console.log(error));
